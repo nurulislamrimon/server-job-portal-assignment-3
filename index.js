@@ -7,7 +7,7 @@ const dbConnection = require("./Utilities/DatabaseConnection")
 // database connection
 dbConnection();
 
-app.use("/user", userRouter)
+app.use("/user", userRouter);
 
 // custom error handler
 app.use(routeNotFound);
