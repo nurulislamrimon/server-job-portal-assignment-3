@@ -1,10 +1,7 @@
-exports.getUsers = (req, res) => {
+exports.getUsers = async (req, res) => {
 
     res.status(200).send({
         status: "success",
-        fault
-
     })
     console.log("testing users");
-
 }

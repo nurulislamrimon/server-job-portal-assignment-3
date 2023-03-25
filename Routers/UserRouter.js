@@ -2,8 +2,10 @@ const express = require('express');
 const { getUsers } = require('../Services/UserServices');
 
 
-const Router = express.Router();
+const router = express.Router();
 
-Router.get("/", getUsers);
+router
+    .route("/")
+    .get(getUsers);
 
-module.exports = Router;
+module.exports = router;
