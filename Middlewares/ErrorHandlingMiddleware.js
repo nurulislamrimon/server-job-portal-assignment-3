@@ -1,5 +1,5 @@
 // route doesn't exist
-exports.routeNotFound = (req, res) => {
+const routeNotFound = (req, res) => {
     res.status(404).send({
         status: "failed",
         message: "Route doesn't exist!"
@@ -10,7 +10,7 @@ exports.routeNotFound = (req, res) => {
 
 
 // handle all errors
-exports.errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
     if (res.headersSent) {
         next("Something went wrong!");
     } else {
@@ -31,3 +31,5 @@ exports.errorHandler = (err, req, res, next) => {
     }
     next();
 }
+
+module.exports = { routeNotFound, errorHandler }
