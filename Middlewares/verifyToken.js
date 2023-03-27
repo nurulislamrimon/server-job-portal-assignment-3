@@ -5,6 +5,7 @@ exports.verifyToken = async (req, res, next) => {
         const bearerToken = req.headers.authorization;
         if (!bearerToken) {
             const invalidUser = new Error("You are not a valid user!");
+            invalidUser.code = 404;
             throw invalidUser;
         } else {
             const token = bearerToken.split(" ")[1];

@@ -15,7 +15,7 @@ const errorHandler = (err, req, res, next) => {
         next("Something went wrong!");
     } else {
         if (err.message) {
-            res.status(400).send({
+            res.status(err.code || 400).send({
                 status: "failed",
                 message: err.message
             })

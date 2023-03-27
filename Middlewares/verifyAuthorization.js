@@ -9,6 +9,7 @@ exports.verifyAuthorization = (...roles) => {
             const isAuthorized = roles.includes(user.role)
             if (!isAuthorized) {
                 const unAuthorizedError = new Error("You are not authorized for this action!")
+                unAuthorizedError.code = 404;
                 throw unAuthorizedError;
             } else {
                 next();
