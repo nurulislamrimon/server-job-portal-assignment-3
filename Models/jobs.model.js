@@ -31,7 +31,7 @@ const JobsSchema = mongoose.Schema({
             require: true,
             validate: validator.isEmail
         },
-        userId: {
+        id: {
             type: ObjectId,
             ref: "User"
         }
