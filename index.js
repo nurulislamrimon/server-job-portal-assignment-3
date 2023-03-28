@@ -8,7 +8,7 @@ const erroHandlerMiddleware = require('./Middlewares/errorHandlingMiddleware');
 const userRouter = require('./Routers/user.router');
 const homeRouter = require('./Routers/home.router')
 const dbConnection = require("./Utilities/databaseConnection");
-const jobRouter = require("./Routers/job.router")
+const jobsRouter = require("./Routers/jobs.router")
 const candidateRouter = require("./Routers/candidate.router")
 
 // port
@@ -19,7 +19,7 @@ dbConnection();
 
 app.use("/", homeRouter)
 app.use("/user", userRouter);
-app.use("/job", jobRouter);
+app.use("/jobs", jobsRouter);
 app.use("/candidate", candidateRouter);
 
 // root folder

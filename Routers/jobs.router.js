@@ -1,5 +1,5 @@
 const express = require('express');
-const { getJobs, postJob } = require('../Controllers/job.controller');
+const jobsController = require('../Controllers/jobs.controller');
 const verifyAuthorization = require('../Middlewares/verifyAuthorization');
 const verifyToken = require('../Middlewares/verifyToken');
 
@@ -7,7 +7,6 @@ const Router = express.Router();
 
 Router
     .route("/")
-    .get(getJobs)
-    .post(verifyToken, verifyAuthorization("admin", "hiring manager"), postJob);
+    .post(verifyToken, verifyAuthorization("admin", "hiring manager"), jobsController.postJobsController);
 
 module.exports = Router;

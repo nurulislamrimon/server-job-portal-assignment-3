@@ -1,5 +1,7 @@
 const fs = require("fs");
 const path = require('path');
+const { postJobs, postJobsService } = require("../Services/jobs.services");
+const { getUserByEmailService } = require("../Services/user.services");
 
 
 exports.getJobs = async (req, res, next) => {
@@ -27,13 +29,18 @@ exports.getJobs = async (req, res, next) => {
     }
 }
 
-exports.postJob = async (req, res, next) => {
-
+exports.postJobsController = async (req, res, next) => {
     try {
-
+        const { email } = req.headers.decoded;
+        const { name } = await getUserByEmailService(email);
+        const job = { ...req.body, manager: { email, name } };
+        const result = await postJobsService(job)
         res.send({
-            result: "success"
+            status: "success",
+            data: result
         })
+        console.log("New job added!");
+
     } catch (error) {
         next(error);
     }

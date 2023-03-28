@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const validator = require("validator");
-const ObjectId = mongoose.Schema.Types;
+const ObjectId = mongoose.Types.ObjectId;
 
 
-const JobSchema = mongoose.Schema({
+const JobsSchema = mongoose.Schema({
     title: {
         type: String,
         required: [true, "Job title is required"],
@@ -14,18 +14,24 @@ const JobSchema = mongoose.Schema({
     },
     jobType: {
         type: String,
-        required: [true, "Job type is required"],
+        required: [true, "Job type is required!"],
+        lowercase: true,
     },
     location: {
         type: String,
-        required: [true, "Location is required"],
+        required: [true, "Location is required!"],
     },
     salary: {
         type: String,
         required: true
     },
-    assignedBy: [{
+    manager: [{
         name: String,
+        email: {
+            type: String,
+            require: true,
+            validate: validator.isEmail
+        },
         userId: {
             type: ObjectId,
             ref: "User"
@@ -34,7 +40,8 @@ const JobSchema = mongoose.Schema({
     description: String,
     deadline: {
         type: String,
-        validate: validator.isDate
+        required: true,
+        validate: [validator.isDate, "Deadline date must be in '2023-05-23' format!"]
     },
     candidates: [{
         name: String,
@@ -46,5 +53,6 @@ const JobSchema = mongoose.Schema({
     }]
 })
 
-const Job = mongoose.model("Job", JobSchema);
-module.exports = Job;
+
+const Jobs = mongoose.model("Job", JobsSchema);
+module.exports = Jobs;
