@@ -1,7 +1,7 @@
 const User = require("../Models/user.model");
 
 
-exports.verifyAuthorization = (...roles) => {
+const verifyAuthorization = (...roles) => {
     return async (req, res, next) => {
         try {
             const userEmail = req.headers.decoded.email;
@@ -20,3 +20,5 @@ exports.verifyAuthorization = (...roles) => {
     }
 
 }
+
+module.exports = verifyAuthorization;

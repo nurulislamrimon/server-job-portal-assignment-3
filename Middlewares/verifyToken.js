@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-exports.verifyToken = async (req, res, next) => {
+const verifyToken = (req, res, next) => {
     try {
         const bearerToken = req.headers.authorization;
         if (!bearerToken) {
-            const invalidUser = new Error("You are not a valid user!");
+            const invalidUser = new Error("Unauthorized user!");
             invalidUser.code = 404;
             throw invalidUser;
         } else {
@@ -17,3 +17,5 @@ exports.verifyToken = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports = verifyToken;

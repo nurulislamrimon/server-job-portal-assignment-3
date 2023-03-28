@@ -16,16 +16,20 @@ const UserSchema = mongoose.Schema({
         lowercase: true,
         validate: [validator.isEmail, "Please provide a valid email!"]
     },
-    mobile: {
+    password: {
         type: String,
         required: true,
+        validate: [validator.isStrongPassword, "Please provide a strong password!"]
+    },
+    mobile: {
+        type: String,
     },
     role: {
         type: String,
         lowercase: true,
         enum: {
             values: ["candidate", "hiring manager", "admin"],
-            message: "Role should not be {VALUE}, it's must be candidate,hiring manager, admin"
+            default: "candidate",
         },
         required: true,
     },
