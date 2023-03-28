@@ -37,17 +37,39 @@ exports.postJobsController = async (req, res, next) => {
 
 
         const result = await JobsServices.postJobsService(job);
-        const assigned = await JobsServices.assignedJobToManager(email, result);
-
-        res.send({
-            status: "success",
-            data: result
-        })
-        console.log(result);
-        // console.log("New job added!");
-
+        const addedToUser = await JobsServices.assignedJobToManager(email, result);
+        if (addedToUser) {
+            res.send({
+                status: "success",
+                data: result
+            })
+            console.log("New job added!");
+        } else {
+            throw new Error("Assignment Failure!")
+        }
     } catch (error) {
         next(error);
     }
+}
 
+exports.updateJob = async (req, res, next) => {
+    try {
+        const jobId = req.params.id;
+        const job = await JobsServices.getJobById(jobId);
+        const managerEmail = req.headers.decoded;
+
+        if (managerEmail.role === "admin" || managerEmail.email === job.manager.email) {
+            const result = await JobsServices.updateJobByIdService(jobId, req.body);
+            res.send({
+                status: "success",
+                data: result
+            })
+            console.log(`job ${jobId} is updated!`);
+        } else {
+            throw new Error("Failed to update job!")
+        }
+
+    } catch (error) {
+        next(error)
+    }
 }
