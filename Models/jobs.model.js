@@ -8,7 +8,6 @@ const JobsSchema = mongoose.Schema({
         type: String,
         required: [true, "Job title is required"],
         trim: true,
-        unique: true,
         minLength: [3, "Title must be atleast 3 characters!"],
         maxLength: [100, "Title is too large!"],
     },
@@ -25,7 +24,7 @@ const JobsSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    manager: [{
+    manager: {
         name: String,
         email: {
             type: String,
@@ -36,7 +35,7 @@ const JobsSchema = mongoose.Schema({
             type: ObjectId,
             ref: "User"
         }
-    }],
+    },
     description: String,
     deadline: {
         type: String,

@@ -10,6 +10,7 @@ const homeRouter = require('./Routers/home.router')
 const dbConnection = require("./Utilities/databaseConnection");
 const jobsRouter = require("./Routers/jobs.router")
 const candidateRouter = require("./Routers/candidate.router")
+const managerRouter = require("./Routers/manager.router")
 
 // port
 const port = process.env.port || 5000;
@@ -17,9 +18,11 @@ const port = process.env.port || 5000;
 // database connection
 dbConnection();
 
+// routes
 app.use("/", homeRouter)
 app.use("/user", userRouter);
 app.use("/jobs", jobsRouter);
+app.use("/manager", managerRouter);
 app.use("/candidate", candidateRouter);
 
 // root folder
