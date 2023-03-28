@@ -5,10 +5,13 @@ const verifyToken = require('../Middlewares/verifyToken');
 
 const Router = express.Router();
 
-Router.post("/",
-    verifyToken,
-    verifyAuthorization("admin", "hiring manager"),
-    jobsController.postJobsController)
+Router
+    .route("/")
+    .get(jobsController.getAllJobs)
+    .post(
+        verifyToken,
+        verifyAuthorization("admin", "hiring manager"),
+        jobsController.postJobsController)
 Router.patch("/:id",
     verifyToken,
     verifyAuthorization("admin", "hiring manager"),

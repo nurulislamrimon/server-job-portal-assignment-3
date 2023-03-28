@@ -6,6 +6,13 @@ exports.getJobById = async (id) => {
     return result;
 }
 
+exports.getAlljobs = async (filter) => {
+    console.log(filter);
+
+    const result = await Jobs.find(filter).select("-candidates");
+    return result;
+}
+
 exports.assignedJobToManager = async (email, { _id, title }) => {
     const job = { jobId: _id, title };
     const result = await User.findOneAndUpdate(

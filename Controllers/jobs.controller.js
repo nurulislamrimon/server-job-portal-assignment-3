@@ -4,26 +4,14 @@ const JobsServices = require("../Services/jobs.services");
 const { getUserByEmailService } = require("../Services/user.services");
 
 
-exports.getJobs = async (req, res, next) => {
+exports.getAllJobs = async (req, res, next) => {
     try {
-        const fileName = "hon's-3rd-year-result-369613564.pdf"
-        const route = './test.txt';
-        // const fileReadStream = fs.createReadStream('./test.txt');
-
-        // fileReadStream.on("data", (err, chunk) => {
-        //     if (err) {
-        //         next(err)
-        //     } else {
-        //         console.log(chunk);
-
-        //     }
-        // })
-        // res.send({ result: route })
-        res.redirect("http://localhost:5000/public\\cv\\hon's-3rd-year-result-17559775.pdf");
-
-        // console.log(route);
-        // res.send({ result: "success" })
-        // console.log("job response");
+        const result = await JobsServices.getAlljobs(filters);
+        res.send({
+            status: "success",
+            data: result
+        })
+        console.log(`${result.length} jobs responsed!`);
     } catch (error) {
         next(error);
     }
