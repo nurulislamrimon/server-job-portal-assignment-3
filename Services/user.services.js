@@ -3,13 +3,8 @@ const User = require("../Models/user.model");
 const generateToken = require("../Utilities/generateToken");
 
 
-exports.getUserInfoService = async (email) => {
-    const result = await User.findOne({ email: email }).select("-password");
-    return result;
-}
-
-exports.getUserByEmailService = async (email) => {
-    const result = await User.findOne({ email: email });
+exports.getUserByEmailService = async (email, select) => {
+    const result = await User.findOne({ email: email }).select(select);
     return result;
 }
 

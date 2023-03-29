@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
             const fileName = file.originalname.replace(fileExt, "").toLowerCase().split(" ").join("-");
 
             cb(null, fileName + '-' + uniqueSuffix + fileExt)
-            console.log(file.originalname);
         } catch (error) {
             cb(error)
         }

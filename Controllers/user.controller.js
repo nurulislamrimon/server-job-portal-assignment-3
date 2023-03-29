@@ -4,7 +4,7 @@ const userServices = require("../Services/user.services");
 exports.getUsersController = async (req, res, next) => {
     try {
         const { email } = req.headers.decoded;
-        const result = await userServices.getUserInfoService(email);
+        const result = await userServices.getUserByEmailService(email, "-password");
         res.status(200).send({
             status: "success",
             data: result
