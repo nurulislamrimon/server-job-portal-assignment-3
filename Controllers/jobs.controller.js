@@ -6,7 +6,7 @@ const { getUserByEmailService } = require("../Services/user.services");
 
 exports.getAllJobs = async (req, res, next) => {
     try {
-        const result = await JobsServices.getAlljobs(filters);
+        const result = await JobsServices.getAlljobs(req.query);
         res.send({
             status: "success",
             data: result

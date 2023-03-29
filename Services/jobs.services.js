@@ -6,10 +6,18 @@ exports.getJobById = async (id) => {
     return result;
 }
 
-exports.getAlljobs = async (filter) => {
-    console.log(filter);
-
-    const result = await Jobs.find(filter).select("-candidates");
+exports.getAlljobs = async (query) => {
+    // getting filters
+    const excludeFields = ["sort", "limit", "skip"];
+    let filters = { ...query };
+    excludeFields.forEach(exItem => {
+        delete filters[exItem];
+    });
+    filters = JSON.stringify(filters);
+    filters = filters.replace(/\b(gt|gte|lt|lte)\b/g, match => `$${match}`);
+    filters = JSON.parse(filters);
+    // fetching data
+    const result = await Jobs.find(filters).select("-candidates").sort(query.sort);
     return result;
 }
 
