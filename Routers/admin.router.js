@@ -1,10 +1,11 @@
 const express = require("express");
 const adminController = require("../Controllers/admin.controllers");
-const { getCandidateByIdService } = require("../Services/admin.services");
 
 const router = express.Router();
 
 router.get("/candidates", adminController.adminCandidateController);
-router.get("/candidates/:id", adminController.adminCandidateDetails);
+router.get("/candidates/:id", adminController.adminCandidateDetailsController);
+router.get("/managers", adminController.adminManagersController);
+router.post("/managers/:id", adminController.updateRoleToManagerController);
 
 module.exports = router;
