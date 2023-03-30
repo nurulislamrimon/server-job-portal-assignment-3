@@ -55,6 +55,10 @@ const UserSchema = mongoose.Schema(
           type: String,
           required: true,
         },
+        jobType: {
+          type: String,
+          required: true,
+        },
         jobId: {
           type: ObjectId,
           ref: "Job",

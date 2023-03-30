@@ -3,7 +3,9 @@ const Jobs = require("../Models/jobs.model");
 const User = require("../Models/user.model");
 
 exports.getJobById = async (id) => {
-  const result = await Jobs.findById(id).populate("manager.id", "-password");
+  const result = await Jobs.findById(id)
+    .populate("candidates.applicationId")
+    .populate("manager.id", "-password");
   return result;
 };
 
@@ -57,18 +59,45 @@ exports.updateJobByIdService = async (id, updateData) => {
   return result;
 };
 
+exports.isJobApplicationAlreadyExistService = (
+  existApplication,
+  appliedJobId
+) => {
+  let exist = false;
+  existApplication.forEach((application) => {
+    const existJobId = JSON.stringify(application.jobId);
+    if (existJobId === `"${appliedJobId}"`) {
+      exist = true;
+    }
+  });
+  return exist;
+};
+
 exports.applyForJobService = async (candidate) => {
+  const { name, mobile, email } = candidate;
+  const { title, jobId } = candidate.appliedFor;
   const result = await Candidate.create(candidate);
   const updateUser = await User.findByIdAndUpdate(candidate.userId, {
     $push: {
       appliedJobs: {
-        title: candidate.appliedFor.title,
-        jobId: candidate.appliedFor.jobId,
+        title,
+        jobId,
         applicationId: result._id,
       },
     },
   });
-  console.log(updateUser);
+  const updateJob = await Jobs.findByIdAndUpdate(jobId, {
+    $push: {
+      candidates: {
+        name,
+        mobile,
+        email,
+        applicationId: result._id,
+      },
+    },
+  });
 
-  return result;
+  if (updateUser && updateJob) {
+    return result;
+  }
 };

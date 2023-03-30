@@ -76,7 +76,7 @@ exports.updateJob = async (req, res, next) => {
 
 exports.applyForJobController = async (req, res, next) => {
   try {
-    // photo url generate
+    // file url generate
     const host = req.get("host");
     const { path } = { ...req.file };
     let cvUrl;
@@ -85,26 +85,40 @@ exports.applyForJobController = async (req, res, next) => {
     }
     // get user info
     const email = req.headers.decoded.email;
-    const { name, mobile, _id } = await getUserByEmailService(email);
+    const { name, mobile, _id, appliedJobs } = await getUserByEmailService(
+      email
+    );
     // get job information
     const jobId = req.params.id;
-    const { title } = await JobsServices.getJobById(jobId);
+    const { title, jobType, deadline } = await JobsServices.getJobById(jobId);
     const newApplication = {
       name,
       mobile,
       email,
       cv: cvUrl,
       userId: _id,
-      appliedFor: { jobId, title },
+      appliedFor: { jobId, title, jobType },
     };
 
-    const result = await JobsServices.applyForJobService(newApplication);
+    const isAlreadyApplied = JobsServices.isJobApplicationAlreadyExistService(
+      appliedJobs,
+      jobId
+    );
 
-    res.send({
-      status: "success",
-      data: result,
-    });
-    console.log("New job application submitted!");
+    if (!isAlreadyApplied) {
+      if (new Date(deadline) >= new Date()) {
+        const result = await JobsServices.applyForJobService(newApplication);
+        res.send({
+          status: "success",
+          data: result,
+        });
+        console.log("New job application submitted!");
+      } else {
+        throw new Error("Sorry, Application date over!");
+      }
+    } else {
+      throw new Error("Sorry, You already have an application for this job!");
+    }
   } catch (error) {
     next(error);
   }
