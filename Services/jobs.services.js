@@ -22,7 +22,8 @@ exports.getAlljobs = async (query) => {
   // fetching data
   const result = await Jobs.find(filters)
     .select("-candidates")
-    .sort(query.sort);
+    .sort(query.sort)
+    .limit(query.limit);
   return result;
 };
 
@@ -100,4 +101,11 @@ exports.applyForJobService = async (candidate) => {
   if (updateUser && updateJob) {
     return result;
   }
+};
+
+exports.getMostAppliedJobs = async (limit) => {
+  const result = await Jobs.find({})
+    .sort("-candidates")
+    .limit(limit || 5);
+  return result;
 };

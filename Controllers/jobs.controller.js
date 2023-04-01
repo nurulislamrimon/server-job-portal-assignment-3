@@ -123,3 +123,32 @@ exports.applyForJobController = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getTopPaidJobsController = async (req, res, next) => {
+  try {
+    const result = await JobsServices.getAlljobs({
+      sort: "-salary",
+      limit: 10,
+    });
+    res.send({
+      status: "success",
+      data: result,
+    });
+    console.log("Top paid jobs responsed!");
+  } catch (error) {
+    next(error);
+  }
+};
+exports.getMostAppliedJobsController = async (req, res, next) => {
+  try {
+    const limit = req.query.limit;
+    const result = await JobsServices.getMostAppliedJobs(limit);
+    res.send({
+      status: "success",
+      data: result,
+    });
+    console.log("Most applied jobs responsed!");
+  } catch (error) {
+    next(error);
+  }
+};
