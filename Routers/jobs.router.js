@@ -1,8 +1,8 @@
 const express = require("express");
-const jobsController = require("../Controllers/jobs.controller");
-const upload = require("../Middlewares/uploadFile");
-const verifyAuthorization = require("../Middlewares/verifyAuthorization");
-const verifyToken = require("../Middlewares/verifyToken");
+const jobsController = require("../controllers/jobs.controller");
+const upload = require("../middlewares/upload_file");
+const verifyAuthorization = require("../middlewares/verifyAuthorization");
+const verifyToken = require("../middlewares/verify_token");
 
 const Router = express.Router();
 

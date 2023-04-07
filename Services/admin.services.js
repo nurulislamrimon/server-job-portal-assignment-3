@@ -1,4 +1,4 @@
-const User = require("../Models/user.model");
+const User = require("../models/user.model");
 const { getUserByIDService } = require("./user.services");
 
 exports.getAllCandidatesService = async () => {

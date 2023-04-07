@@ -1,4 +1,4 @@
-const adminServices = require("../Services/admin.services");
+const adminServices = require("../services/admin.services");
 
 exports.adminCandidateController = async (req, res, next) => {
   try {

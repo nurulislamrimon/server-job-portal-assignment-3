@@ -1,6 +1,6 @@
-const Candidate = require("../Models/candidate.model");
-const Jobs = require("../Models/jobs.model");
-const User = require("../Models/user.model");
+const Candidate = require("../models/candidate.model");
+const Jobs = require("../models/jobs.model");
+const User = require("../models/user.model");
 
 exports.getJobById = async (id) => {
   const result = await Jobs.findById(id)

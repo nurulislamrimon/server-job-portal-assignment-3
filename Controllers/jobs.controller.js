@@ -1,5 +1,5 @@
-const JobsServices = require("../Services/jobs.services");
-const { getUserByEmailService } = require("../Services/user.services");
+const JobsServices = require("../services/jobs.services");
+const { getUserByEmailService } = require("../services/user.services");
 
 exports.getAllJobsController = async (req, res, next) => {
   try {

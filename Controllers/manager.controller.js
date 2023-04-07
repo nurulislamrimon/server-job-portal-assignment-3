@@ -1,5 +1,5 @@
-const { getJobById } = require("../Services/jobs.services");
-const managerServices = require("../Services/manager.services");
+const { getJobById } = require("../services/jobs.services");
+const managerServices = require("../services/manager.services");
 
 exports.getJobsByManagerController = async (req, res, next) => {
   try {
