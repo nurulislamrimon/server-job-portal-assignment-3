@@ -1,4 +1,4 @@
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const generateToken = require("../utilitis/generate_token");
 
@@ -12,8 +12,8 @@ exports.getUserByEmailService = async (email, select) => {
 };
 
 exports.postUserService = async (newUser) => {
-  // const { password } = newUser;
-  // const hashedPassword = await bcrypt.hash(password, 10);
+  const { password } = newUser;
+  const hashedPassword = await bcrypt.hash(password, 10);
   const result = await User.create({
     ...newUser,
     password: hashedPassword,
@@ -25,7 +25,7 @@ exports.postUserService = async (newUser) => {
 };
 
 exports.verifyPasswordService = async (password, hashedPassword) => {
-  // return await bcrypt.compare(password, hashedPassword);
+  return await bcrypt.compare(password, hashedPassword);
   if (password === hashedPassword) {
     return true;
   } else {

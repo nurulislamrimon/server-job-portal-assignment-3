@@ -24,7 +24,7 @@ exports.getAllManagersService = async () => {
 
 exports.updateRoleToManagerService = async (id) => {
   const userPresentRole = await getUserByIDService(id);
-  if (userPresentRole === "hiring manager") {
+  if (userPresentRole.role !== "hiring manager") {
     const result = await User.findByIdAndUpdate(id, {
       $set: { role: "hiring manager" },
     });
