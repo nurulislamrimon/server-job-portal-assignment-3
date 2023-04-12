@@ -1,6 +1,6 @@
 const express = require("express");
 const jobsController = require("../controllers/jobs.controller");
-const upload = require("../middlewares/upload_file");
+// const upload = require("../middlewares/upload_file");
 const verifyAuthorization = require("../middlewares/verifyAuthorization");
 const verifyToken = require("../middlewares/verify_token");
 
@@ -26,7 +26,7 @@ Router.route("/:id")
 
 Router.route("/:id/apply").post(
   verifyToken,
-  upload.single("cv"),
+  // upload.single("cv"),
   jobsController.applyForJobController
 );
 
